@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class MemberGroup extends Model
 {
@@ -11,4 +12,9 @@ class MemberGroup extends Model
         'slug',
         'status'
     ];
+
+    public function teamMembers(): HasMany
+    {
+        return $this->hasMany(TeamMember::class);
+    }
 }
