@@ -90,6 +90,7 @@ class UserResource extends Resource
                                 ->directory('user') // 👈 save in storage/app/public/user
                                 ->maxSize(2048) // 2MB max
                                 ->imageEditor()
+                                ->rules(['mimes:jpg,jpeg,png,gif'])
                                 ->columnSpanFull(),
                         ])->columns(2)
                 ])->columnSpanFull()
