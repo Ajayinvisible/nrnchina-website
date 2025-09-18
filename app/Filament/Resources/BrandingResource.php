@@ -36,7 +36,8 @@ class BrandingResource extends Resource
                             ->label('Company')->required()
                             ->relationship('company', 'name')
                             ->default(fn() => Company::query()->value('id'))
-                            ->columnSpan('full')->required(),
+                            ->columnSpanfull()
+                            ->required(),
                         FileUpload::make('logo')
                             ->required()
                             ->directory('branding')
