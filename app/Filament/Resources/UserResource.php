@@ -54,7 +54,11 @@ class UserResource extends Resource
                             TextInput::make('email')
                                 ->required()
                                 ->email()
-                                ->unique('users', 'email') // ensure unique email
+                                ->unique(
+                                    table: 'users',
+                                    column: 'email',
+                                    ignorable: fn($record) => $record
+                                )
                                 ->maxLength(100)
                                 ->columnSpanFull(),
 
