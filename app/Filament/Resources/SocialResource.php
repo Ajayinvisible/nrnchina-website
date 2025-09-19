@@ -2,10 +2,10 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\ContactResource\Pages;
-use App\Filament\Resources\ContactResource\RelationManagers;
+use App\Filament\Resources\SocialResource\Pages;
+use App\Filament\Resources\SocialResource\RelationManagers;
 use App\Models\Company;
-use App\Models\Contact;
+use App\Models\Social;
 use Filament\Forms;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Select;
@@ -20,11 +20,11 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
-class ContactResource extends Resource
+class SocialResource extends Resource
 {
-    protected static ?string $model = Contact::class;
+    protected static ?string $model = Social::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-phone-arrow-down-left';
+    protected static ?string $navigationIcon = 'heroicon-o-share';
 
     public static function form(Form $form): Form
     {
@@ -37,6 +37,7 @@ class ContactResource extends Resource
                             ->relationship('company', 'name')
                             ->default(fn() => Company::query()->value('id'))
                             ->required(),
+
                         TextInput::make('icon')
                             ->nullable()
                             ->maxLength(100)
@@ -46,18 +47,18 @@ class ContactResource extends Resource
                                 );
                             })
                             ->placeholder('e.g. fa-solid fa-user'),
-                        TextInput::make('number')
+
+                        TextInput::make('link')
+                            ->label('Social Media Link')
                             ->required()
-                            ->maxLength(15)
-                            ->regex('/^[0-9+\-\s]+$/'),
-                        Select::make('type')
+                            ->url()
+                            ->maxLength(255),
+
+                        TextInput::make('platform')
+                            ->label('Social Media Platform Name')
                             ->required()
-                            ->options([
-                                'phone' => 'Phone',
-                                'support' => 'Support',
-                                'viber' => 'Viber',
-                                'whatsapp' => 'Whatsapp'
-                            ]),
+                            ->maxLength(100),
+
                         Toggle::make('status')
                             ->default(false)
                     ])->columns(2)
@@ -68,7 +69,7 @@ class ContactResource extends Resource
     {
         return $table
             ->columns([
-                TextColumn::make('id')->sortable()->searchable(),
+                TextColumn::make('id')->sortable(),
                 TextColumn::make('icon')
                     ->label('Icon')
                     ->formatStateUsing(
@@ -77,8 +78,8 @@ class ContactResource extends Resource
                             : '-'
                     )
                     ->html(),
-                TextColumn::make('number')->searchable()->sortable(),
-                ToggleColumn::make('status')->sortable()
+                TextColumn::make('platform')->sortable()->searchable(),
+                ToggleColumn::make('status')
             ])
             ->filters([
                 //
@@ -103,9 +104,9 @@ class ContactResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListContacts::route('/'),
-            'create' => Pages\CreateContact::route('/create'),
-            'edit' => Pages\EditContact::route('/{record}/edit'),
+            'index' => Pages\ListSocials::route('/'),
+            'create' => Pages\CreateSocial::route('/create'),
+            'edit' => Pages\EditSocial::route('/{record}/edit'),
         ];
     }
 }
