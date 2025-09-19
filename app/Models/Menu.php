@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Menu extends Model
 {
@@ -53,5 +54,10 @@ class Menu extends Model
     public function getIndentedParentNameAttribute(): ?string
     {
         return $this->parent ? $this->parent->indented_name : null;
+    }
+
+    public function breadcrumb(): HasMany
+    {
+        return $this->hasMany(BreadCrumb::class);
     }
 }
