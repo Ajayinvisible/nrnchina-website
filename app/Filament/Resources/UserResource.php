@@ -87,7 +87,7 @@ class UserResource extends Resource
                                 ->label('Profile Image')
                                 ->nullable()
                                 ->image()
-                                ->directory('breadcrumb') // 👈 save in storage/app/public/user
+                                ->directory('user') // 👈 save in storage/app/public/user
                                 ->maxSize(2048) // 2MB max
                                 ->imageEditor()
                                 ->rules(['mimes:jpg,jpeg,png,gif'])

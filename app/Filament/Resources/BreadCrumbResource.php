@@ -42,7 +42,7 @@ class BreadCrumbResource extends Resource
                             ->label('Bread Crumb Image')
                             ->nullable()
                             ->image()
-                            ->directory('user') // 👈 save in storage/app/public/user
+                            ->directory('breadcrumb') 
                             ->maxSize(2048) // 2MB max
                             ->imageEditor()
                             ->rules(['mimes:jpg,jpeg,png,gif'])
