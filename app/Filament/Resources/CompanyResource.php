@@ -15,6 +15,7 @@ use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Support\Enums\IconPosition;
 use Filament\Tables;
+use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
@@ -85,7 +86,6 @@ class CompanyResource extends Resource
     {
         return $table
             ->columns([
-                TextColumn::make('id'),
                 TextColumn::make('name'),
                 TextColumn::make('email'),
                 TextColumn::make('address'),
@@ -98,7 +98,7 @@ class CompanyResource extends Resource
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
+                    // Tables\Actions\DeleteBulkAction::make(),
                 ]),
             ]);
     }
