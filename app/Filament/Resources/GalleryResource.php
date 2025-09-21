@@ -46,33 +46,38 @@ class GalleryResource extends Resource
                             })
                             ->required()
                             ->rules('string|max:50'),
+
                         TextInput::make('slug')->unique(ignoreRecord: true)->required(),
+
                         Textarea::make('meta_keywords')
                             ->label('Meta Keywords')
                             ->nullable()
                             ->string()
                             ->maxLength(255)
                             ->columnSpanFull(),
+
                         Textarea::make('meta_description')
                             ->label('Meta Description | 160 character')
                             ->nullable()
                             ->string()
                             ->maxLength(160)
                             ->columnSpanFull(),
+
                         FileUpload::make('thumbnail')
                             ->image()
                             ->reorderable()
                             ->directory('galleries')
                             ->rules(['mimes:png,jpg,jpeg,gif,webp'])
                             ->columnSpanFull(),
-                        FileUpload::make('fullGallery.images')
+
+                        FileUpload::make('images')
                             ->label('Gallery Images')
                             ->image()
                             ->multiple()
                             ->reorderable()
                             ->directory('galleries')
-                            ->rules(['mimes:png,jpg,jpeg,gif,webp'])
                             ->columnSpanFull(),
+
                         Toggle::make('status')
                             ->default(true),
                     ])->columns(2)

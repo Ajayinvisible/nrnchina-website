@@ -3,16 +3,18 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasOne;
 
-class Gallery extends Model
+class Project extends Model
 {
     protected $fillable = [
         'title',
         'slug',
         'meta_keywords',
         'meta_description',
+        'short_description',
+        'description',
         'thumbnail',
+        'date',
         'images',
         'status',
     ];
@@ -20,5 +22,4 @@ class Gallery extends Model
     protected $casts = [
         'images' => 'array',
     ];
-    
 }
