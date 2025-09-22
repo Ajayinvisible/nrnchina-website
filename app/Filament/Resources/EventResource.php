@@ -2,16 +2,13 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\ProjectResource\Pages;
-use App\Filament\Resources\ProjectResource\RelationManagers;
-use App\Models\Project;
+use App\Filament\Resources\EventResource\Pages;
+use App\Filament\Resources\EventResource\RelationManagers;
+use App\Models\Event;
 use Filament\Forms;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\FileUpload;
-use Filament\Forms\Components\Grid;
-use Filament\Forms\Components\Group;
 use Filament\Forms\Components\RichEditor;
-use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Tabs;
 use Filament\Forms\Components\Tabs\Tab;
 use Filament\Forms\Components\Textarea;
@@ -21,19 +18,16 @@ use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Support\Enums\IconPosition;
 use Filament\Tables;
-use Filament\Tables\Columns\ImageColumn;
-use Filament\Tables\Columns\TextColumn;
-use Filament\Tables\Columns\ToggleColumn;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Illuminate\Support\Str;
 
-class ProjectResource extends Resource
+class EventResource extends Resource
 {
-    protected static ?string $model = Project::class;
+    protected static ?string $model = Event::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-bookmark-square';
+    protected static ?string $navigationIcon = 'heroicon-o-calendar-days';
 
     public static function form(Form $form): Form
     {
@@ -61,24 +55,27 @@ class ProjectResource extends Resource
                                     ->unique(ignoreRecord: true)
                                     ->required(),
 
-                                // Left Side → Short Description
-                                RichEditor::make('short_description')
-                                    ->nullable()
-                                    ->columnSpan(1), // 👈 force to 1 column instead of full width
-
                                 DatePicker::make('date')
                                     ->required(),
 
-                                RichEditor::make('description')
+                                TextInput::make('location')
                                     ->nullable()
-                                    ->columnSpanFull(),
+                                    ->maxLength(255),
+
+                                // Left Side → Short Description
+                                RichEditor::make('short_description')
+                                    ->nullable()
+                                    ->columnSpan(1),
 
                                 FileUpload::make('thumbnail')
                                     ->nullable()
                                     ->image()
                                     ->directory('projects')
                                     ->maxSize(2048)
-                                    ->imageEditor()
+                                    ->imageEditor(),
+
+                                RichEditor::make('description')
+                                    ->nullable()
                                     ->columnSpanFull(),
 
                                 Toggle::make('status'),
@@ -103,19 +100,6 @@ class ProjectResource extends Resource
                                     ->columnSpanFull(),
                             ]),
 
-                        Tab::make('Project Images')
-                            ->icon('heroicon-o-photo')
-                            ->iconPosition(IconPosition::Before)
-                            ->schema([
-                                FileUpload::make('images')
-                                    ->label('Gallery Images')
-                                    ->image()
-                                    ->multiple()
-                                    ->reorderable()
-                                    ->directory('ProjectGallery')
-                                    ->columnSpanFull(),
-                            ])
-
                     ])->columnSpanFull()
             ]);
     }
@@ -124,11 +108,7 @@ class ProjectResource extends Resource
     {
         return $table
             ->columns([
-                TextColumn::make('id')->sortable(),
-                ImageColumn::make('thumbnail')->sortable()->circular(),
-                TextColumn::make('title')->sortable()->searchable(),
-                TextColumn::make('date')->date()->sortable()->searchable(),
-                ToggleColumn::make('status')->sortable()->searchable(),
+                //
             ])
             ->filters([
                 //
@@ -153,9 +133,9 @@ class ProjectResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListProjects::route('/'),
-            'create' => Pages\CreateProject::route('/create'),
-            'edit' => Pages\EditProject::route('/{record}/edit'),
+            'index' => Pages\ListEvents::route('/'),
+            'create' => Pages\CreateEvent::route('/create'),
+            'edit' => Pages\EditEvent::route('/{record}/edit'),
         ];
     }
 }
