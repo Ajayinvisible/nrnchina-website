@@ -43,6 +43,12 @@ class CompanyResource extends Resource
                                     ->maxLength(255)
                                     ->columnSpanFull(),
 
+                                TextInput::make('nepali_name')
+                                    ->label('Company Name In Nepali')
+                                    ->required()
+                                    ->maxLength(255)
+                                    ->columnSpanFull(),
+
                                 TextInput::make('email')
                                     ->label('Company Email')
                                     ->required()
