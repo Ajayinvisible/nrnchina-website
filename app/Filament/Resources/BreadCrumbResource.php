@@ -24,6 +24,8 @@ class BreadCrumbResource extends Resource
 {
     protected static ?string $model = BreadCrumb::class;
 
+    protected static ?string $navigationGroup = 'Hero Slider & breadcrumb';
+
     protected static ?string $navigationIcon = 'heroicon-o-photo';
 
     public static function form(Form $form): Form

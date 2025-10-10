@@ -25,6 +25,8 @@ class HeroSliderResource extends Resource
 {
     protected static ?string $model = HeroSlider::class;
 
+    protected static ?string $navigationGroup = 'Hero Slider & breadcrumb';
+
     protected static ?string $navigationIcon = 'heroicon-o-adjustments-horizontal';
 
     public static function form(Form $form): Form
