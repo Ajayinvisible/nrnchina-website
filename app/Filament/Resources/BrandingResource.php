@@ -24,6 +24,8 @@ class BrandingResource extends Resource
 {
     protected static ?string $model = Branding::class;
 
+    protected static ?string $navigationGroup = 'Settings';
+
     protected static ?string $navigationIcon = 'heroicon-o-at-symbol';
 
     public static function form(Form $form): Form

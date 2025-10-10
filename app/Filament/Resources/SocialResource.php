@@ -24,6 +24,8 @@ class SocialResource extends Resource
 {
     protected static ?string $model = Social::class;
 
+    protected static ?string $navigationGroup = 'Settings';
+
     protected static ?string $navigationIcon = 'heroicon-o-share';
 
     public static function form(Form $form): Form
