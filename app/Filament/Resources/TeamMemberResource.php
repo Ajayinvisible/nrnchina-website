@@ -25,6 +25,8 @@ class TeamMemberResource extends Resource
 {
     protected static ?string $model = TeamMember::class;
 
+    protected static ?string $navigationGroup = 'Users & Teams';
+
     protected static ?string $navigationIcon = 'heroicon-o-identification';
 
     public static function form(Form $form): Form

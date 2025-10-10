@@ -23,6 +23,8 @@ class MemberGroupResource extends Resource
 {
     protected static ?string $model = MemberGroup::class;
 
+    protected static ?string $navigationGroup = 'Users & Teams';
+
     protected static ?string $navigationIcon = 'heroicon-o-user-group';
 
     public static function form(Form $form): Form
